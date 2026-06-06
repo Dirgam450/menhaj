@@ -950,10 +950,7 @@ const copyPostLink = async () => {
           <h2 v-if="activeTab === 'all'" style="margin: 0; font-size: 1.25rem; font-weight: 800;">الرئيسية</h2>
           <h2 v-else-if="activeTab === 'saved'" style="margin: 0; font-size: 1.25rem; font-weight: 800;">الخواطر المحفوظة</h2>
         </div>
-        <!-- زر التنبيهات العشوائية للجوال -->
-        <button @click="triggerRoulette" class="mobile-roulette-btn" style="background: transparent; border: none; font-size: 1.15rem; color: var(--color-primary); cursor: pointer; display: none; margin-left: 0.5rem;" aria-label="خاطرة عشوائية">
-          <i class="fa-solid fa-dice"></i>
-        </button>
+        <!-- تمت إزالة زر التنبيهات العشوائية من الترويسة ونقله إلى الدوك السفلي -->
 
         <!-- زر سريع لتبديل المظهر في الجوال -->
         <button @click="toggleTheme" class="mobile-theme-btn" style="background: transparent; border: none; font-size: 1.1rem; color: var(--text-main); cursor: pointer;" aria-label="تبديل المظهر">
@@ -1346,6 +1343,10 @@ const copyPostLink = async () => {
       <button @click="activeTab = 'all'" :class="{ active: activeTab === 'all' }" class="mobile-nav-btn">
         <i class="fa-solid fa-house"></i>
         <span>الرئيسية</span>
+      </button>
+      <button @click="triggerRoulette" class="mobile-nav-btn">
+        <i class="fa-solid fa-dice"></i>
+        <span>فائدة عشوائية</span>
       </button>
       <button @click="activeTab = 'saved'" :class="{ active: activeTab === 'saved' }" class="mobile-nav-btn">
         <i class="fa-solid fa-bookmark"></i>
