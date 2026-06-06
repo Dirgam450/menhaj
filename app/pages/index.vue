@@ -832,6 +832,17 @@ const downloadGeneratedImage = () => {
   link.click();
 };
 
+// ميزة الفائدة العشوائية (Tadabbur Roulette)
+const isRouletteModalOpen = ref(false);
+const roulettePost = ref<any | null>(null);
+
+const triggerRoulette = () => {
+  if (posts.value.length === 0) return;
+  const randomIndex = Math.floor(Math.random() * posts.value.length);
+  roulettePost.value = posts.value[randomIndex];
+  isRouletteModalOpen.value = true;
+};
+
 // نسخ الرابط
 const copyPostLink = async () => {
   if (!sharingPost.value) return;
@@ -939,7 +950,11 @@ const copyPostLink = async () => {
           <h2 v-if="activeTab === 'all'" style="margin: 0; font-size: 1.25rem; font-weight: 800;">الرئيسية</h2>
           <h2 v-else-if="activeTab === 'saved'" style="margin: 0; font-size: 1.25rem; font-weight: 800;">الخواطر المحفوظة</h2>
         </div>
-        
+        <!-- زر التنبيهات العشوائية للجوال -->
+        <button @click="triggerRoulette" class="mobile-roulette-btn" style="background: transparent; border: none; font-size: 1.15rem; color: var(--color-primary); cursor: pointer; display: none; margin-left: 0.5rem;" aria-label="خاطرة عشوائية">
+          <i class="fa-solid fa-dice"></i>
+        </button>
+
         <!-- زر سريع لتبديل المظهر في الجوال -->
         <button @click="toggleTheme" class="mobile-theme-btn" style="background: transparent; border: none; font-size: 1.1rem; color: var(--text-main); cursor: pointer;" aria-label="تبديل المظهر">
           <i :class="isDarkMode ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
@@ -1091,6 +1106,16 @@ const copyPostLink = async () => {
         <p style="font-size: 0.8rem; color: var(--text-muted); border-top: 1px dashed var(--border-color); padding-top: 0.5rem; line-height: 1.5;">
           <strong>التفسير: </strong> {{ ayahOfTheDay.tafsir }}
         </p>
+      </div>
+      <!-- ويدجت الفائدة العشوائية -->
+      <div class="widget-card roulette-widget" style="border-right: 4px solid var(--color-primary);">
+        <h3 class="widget-title"><i class="fa-solid fa-wand-magic-sparkles"></i> فائدة تدبرية عشوائية</h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.45;">
+          هل تبحث عن إلهام وتدبر سريع؟ دع الذكاء يختار لك فائدة عشوائية من المنصة.
+        </p>
+        <button @click="triggerRoulette" class="publish-btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem; font-size: 0.85rem; border-radius: 10px;">
+          <i class="fa-solid fa-dice"></i> تدبر عشوائي
+        </button>
       </div>
 
       <!-- مصادر إضافية وموثوقة -->
@@ -1282,6 +1307,40 @@ const copyPostLink = async () => {
         </div>
       </div>
     </Transition>
+    <!-- مودال الفائدة العشوائية -->
+    <div v-if="isRouletteModalOpen" class="composer-modal-overlay" @click.self="isRouletteModalOpen = false">
+      <div class="composer-modal-card" style="max-width: 500px; border-right: 4px solid var(--color-primary);">
+        <div class="composer-modal-header" style="border-bottom: 1px dashed var(--border-color);">
+          <h3><i class="fa-solid fa-wand-magic-sparkles"></i> خاطرة قرآنية عشوائية</h3>
+          <button @click="isRouletteModalOpen = false" class="close-modal-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="composer-modal-body" v-if="roulettePost" style="gap: 1rem; text-align: right; padding: 1.5rem 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <img :src="roulettePost.authorAvatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${roulettePost.authorName}`" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;" />
+            <span style="font-weight: 700; color: var(--color-primary); font-size: 0.95rem;">{{ roulettePost.authorName }}</span>
+          </div>
+          
+          <p style="font-size: 1rem; line-height: 1.6; color: var(--text-main); margin: 0; white-space: pre-wrap;">
+            {{ roulettePost.content }}
+          </p>
+
+          <div class="tweet-verse-card" v-if="roulettePost.verseRef" style="margin: 0; background: var(--bg-primary);">
+            <span class="tweet-verse-ref">
+              <i class="fa-solid fa-book-quran"></i> سورة {{ roulettePost.verseRef.surahName }} - الآية {{ roulettePost.verseRef.verseNumber }}
+            </span>
+            <p class="tweet-verse-text" style="font-size: 1.2rem; line-height: 1.6;">« {{ roulettePost.verseRef.text }} »</p>
+            <p class="tweet-verse-tafsir" style="margin: 0; font-size: 0.82rem; line-height: 1.5;"><strong>التفسير الميسر:</strong> {{ roulettePost.verseRef.tafsir }}</p>
+          </div>
+
+          <button @click="triggerRoulette" class="publish-btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; padding: 0.75rem; border-radius: 12px;">
+            <i class="fa-solid fa-dice"></i> خاطرة عشوائية أخرى
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- شريط التنقل السفلي الثابت للجوال -->
     <nav class="mobile-bottom-nav">
       <button @click="activeTab = 'all'" :class="{ active: activeTab === 'all' }" class="mobile-nav-btn">

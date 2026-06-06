@@ -631,7 +631,8 @@ body.dark-mode .tweet-card:hover {
 
 .mobile-menu-toggle,
 .mobile-theme-btn,
-.mobile-menu-header {
+.mobile-menu-header,
+.mobile-roulette-btn {
   display: none;
 }
 
@@ -661,7 +662,8 @@ body.dark-mode .tweet-card:hover {
   .mobile-menu-toggle {
     display: none !important;
   }
-  .mobile-theme-btn {
+  .mobile-theme-btn,
+  .mobile-roulette-btn {
     display: block !important;
   }
   .widgets-sidebar {
