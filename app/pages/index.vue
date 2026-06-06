@@ -838,7 +838,7 @@ const copyPostLink = async () => {
     <aside class="sidebar-nav" :class="{ 'mobile-open': isMobileMenuOpen }">
       <div>
         <!-- رأس القائمة للجوال لإمكانية الإغلاق -->
-        <div class="mobile-menu-header" style="display: none; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+        <div class="mobile-menu-header" style="justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
           <span style="font-weight: 800; color: var(--color-primary);">المنهاج الوهاج</span>
           <button @click="isMobileMenuOpen = false" style="background: transparent; border: none; font-size: 1.25rem; color: var(--text-muted); cursor: pointer;" aria-label="إغلاق القائمة">
             <i class="fa-solid fa-xmark"></i>
@@ -917,7 +917,7 @@ const copyPostLink = async () => {
     <main class="main-feed">
       <div class="feed-header" style="display: flex; align-items: center; gap: 1rem; justify-content: space-between;">
         <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <button @click="isMobileMenuOpen = true" class="mobile-menu-toggle" aria-label="فتح القائمة" style="background: transparent; border: none; font-size: 1.25rem; color: var(--text-main); cursor: pointer; display: none;">
+          <button @click="isMobileMenuOpen = true" class="mobile-menu-toggle" aria-label="فتح القائمة" style="background: transparent; border: none; font-size: 1.25rem; color: var(--text-main); cursor: pointer;">
             <i class="fa-solid fa-bars"></i>
           </button>
           <h2 v-if="activeTab === 'all'" style="margin: 0; font-size: 1.25rem; font-weight: 800;">الرئيسية</h2>
@@ -925,7 +925,7 @@ const copyPostLink = async () => {
         </div>
         
         <!-- زر سريع لتبديل المظهر في الجوال -->
-        <button @click="toggleTheme" class="mobile-theme-btn" style="background: transparent; border: none; font-size: 1.1rem; color: var(--text-main); cursor: pointer; display: none;" aria-label="تبديل المظهر">
+        <button @click="toggleTheme" class="mobile-theme-btn" style="background: transparent; border: none; font-size: 1.1rem; color: var(--text-main); cursor: pointer;" aria-label="تبديل المظهر">
           <i :class="isDarkMode ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
         </button>
       </div>

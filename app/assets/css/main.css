@@ -629,6 +629,12 @@ body.dark-mode .tweet-card:hover {
   color: var(--color-secondary);
 }
 
+.mobile-menu-toggle,
+.mobile-theme-btn,
+.mobile-menu-header {
+  display: none;
+}
+
 /* التجاوب والملاءمة للهواتف */
 @media (max-width: 1024px) {
   .app-layout {
@@ -650,7 +656,38 @@ body.dark-mode .tweet-card:hover {
     grid-template-columns: 100%;
   }
   .sidebar-nav {
-    display: none; /* إخفاء الجانبي للهاتف وتفعيل شريط سفلي بديل */
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: -280px !important;
+    width: 280px !important;
+    height: 100vh !important;
+    z-index: 2000 !important;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25) !important;
+    background-color: var(--bg-card) !important;
+    backdrop-filter: var(--glass-blur) !important;
+  }
+  .sidebar-nav.mobile-open {
+    right: 0 !important;
+  }
+  .mobile-menu-header {
+    display: flex !important;
+  }
+  .logo-title, .logo-desc, .nav-item span, .post-composer-trigger span {
+    display: inline-block !important;
+  }
+  .nav-item {
+    justify-content: flex-start !important;
+    border-radius: 12px !important;
+    padding: 0.85rem 1.25rem !important;
+    width: 100% !important;
+  }
+  .mobile-menu-toggle {
+    display: block !important;
+  }
+  .mobile-theme-btn {
+    display: block !important;
   }
   .widgets-sidebar {
     display: none;
@@ -658,6 +695,23 @@ body.dark-mode .tweet-card:hover {
   .mobile-only-ayah {
     display: block !important;
   }
+}
+
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1999;
+  animation: mobileFadeIn 0.25s ease-out;
+}
+
+@keyframes mobileFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .mobile-only-ayah {
