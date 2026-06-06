@@ -881,36 +881,6 @@ const triggerRoulette = async () => {
   }
 };
 
-const shareRouletteVerse = async () => {
-  if (!rouletteVerse.value) return;
-  const shareText = `« ${rouletteVerse.value.text} »\nسورة ${rouletteVerse.value.surahName} - الآية ${rouletteVerse.value.verseNumber}\nالتفسير الميسر: ${rouletteVerse.value.tafsir}\n\nعبر تطبيق منهاج الوهاج:\nhttps://menhaj-mubin.vercel.app`;
-  
-  if (typeof window !== 'undefined' && navigator.share) {
-    try {
-      await navigator.share({
-        title: `آية وتفسير من القرآن الكريم`,
-        text: shareText,
-        url: window.location.origin
-      });
-    } catch (e) {
-      console.log('فشلت المشاركة الأصلية، نسخ النص كبديل:', e);
-      try {
-        await navigator.clipboard.writeText(shareText);
-        alert('تم نسخ نص الآية والتفسير للمشاركة!');
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  } else {
-    try {
-      await navigator.clipboard.writeText(shareText);
-      alert('تم نسخ نص الآية والتفسير للمشاركة!');
-    } catch (err) {
-      console.error(err);
-    }
-  }
-};
-
 // نسخ الرابط
 const copyPostLink = async () => {
   if (!sharingPost.value) return;
@@ -918,6 +888,43 @@ const copyPostLink = async () => {
   try {
     await navigator.clipboard.writeText(link);
     alert('تم نسخ الرابط بنجاح!');
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// مشاركة الآية العشوائية
+const shareRouletteVerse = async () => {
+  if (!rouletteVerse.value) return;
+  const v = rouletteVerse.value;
+  const shareText = `« ${v.text} »\n\nسورة ${v.surahName} - الآية ${v.verseNumber}\n\nالتفسير الميسر: ${v.tafsir}\n\nمن منصة منهاج • menhaj-mubin.vercel.app`;
+  
+  if (typeof navigator !== 'undefined' && navigator.share) {
+    try {
+      await navigator.share({
+        title: `آية من سورة ${v.surahName}`,
+        text: shareText
+      });
+    } catch (e) {
+      if ((e as any).name !== 'AbortError') console.error(e);
+    }
+  } else {
+    try {
+      await navigator.clipboard.writeText(shareText);
+      alert('تم نسخ الآية والتفسير بنجاح!');
+    } catch (e) {
+      console.error(e);
+    }
+  }
+};
+
+const copyRouletteVerse = async () => {
+  if (!rouletteVerse.value) return;
+  const v = rouletteVerse.value;
+  const copyText = `« ${v.text} »\nسورة ${v.surahName} - الآية ${v.verseNumber}\nالتفسير: ${v.tafsir}`;
+  try {
+    await navigator.clipboard.writeText(copyText);
+    alert('تم نسخ الآية والتفسير بنجاح!');
   } catch (e) {
     console.error(e);
   }
@@ -1405,14 +1412,18 @@ const copyPostLink = async () => {
             </div>
           </div>
 
-          <div style="display: flex; gap: 0.5rem; width: 100%; margin-top: 0.5rem;">
-            <button @click="shareRouletteVerse" class="publish-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.85rem;" aria-label="مشاركة الآية">
-              <i class="fa-solid fa-share-nodes"></i> مشاركة الآية
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <button @click="shareRouletteVerse" class="publish-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; border-radius: 12px;">
+              <i class="fa-solid fa-share-nodes"></i> مشاركة
             </button>
-            <button @click="triggerRoulette" class="publish-btn" style="flex: 1.5; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; border-radius: 12px; font-size: 0.85rem;">
-              <i class="fa-solid fa-wand-magic-sparkles"></i> آية عشوائية أخرى
+            <button @click="copyRouletteVerse" style="flex: 0; min-width: 48px; display: flex; align-items: center; justify-content: center; padding: 0.75rem; border-radius: 12px; background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; font-size: 1rem;">
+              <i class="fa-solid fa-copy"></i>
             </button>
           </div>
+
+          <button @click="triggerRoulette" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.65rem; border-radius: 12px; background: transparent; border: 1px dashed var(--border-color); color: var(--text-muted); cursor: pointer; font-size: 0.85rem; font-family: inherit; transition: all 0.2s;">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> آية عشوائية أخرى
+          </button>
         </div>
       </div>
     </div>
