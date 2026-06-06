@@ -1023,7 +1023,7 @@ const copyRouletteVerse = async () => {
           <button @click="isMobileMenuOpen = true" class="mobile-menu-toggle" aria-label="فتح القائمة" style="background: transparent; border: none; font-size: 1.25rem; color: var(--text-main); cursor: pointer;">
             <i class="fa-solid fa-bars"></i>
           </button>
-          <h2 v-if="activeTab === 'all'" style="margin: 0; font-size: 1.25rem; font-weight: 800;">الرئيسية</h2>
+          <img v-if="activeTab === 'all'" src="/logo-menhaj.png" alt="منهاج مبين" style="height: 38px; object-fit: contain; background: rgba(255,255,255,0.85); padding: 4px 10px; border-radius: 10px;" />
           <h2 v-else-if="activeTab === 'saved'" style="margin: 0; font-size: 1.25rem; font-weight: 800;">الخواطر المحفوظة</h2>
         </div>
         <!-- تمت إزالة زر التنبيهات العشوائية من الترويسة ونقله إلى الدوك السفلي -->
