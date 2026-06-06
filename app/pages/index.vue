@@ -7,6 +7,7 @@ import { fetchSurahs, fetchVerse } from '../utils/quranApi';
 type FeedTab = 'all' | 'saved';
 const activeTab = ref<FeedTab>('all');
 const isMobileMenuOpen = ref(false);
+const isMobileProfileOpen = ref(false);
 
 // بيانات المستخدم والوضع الداكن
 const userId = ref<string>('');
@@ -1428,6 +1429,45 @@ const copyRouletteVerse = async () => {
       </div>
     </div>
 
+    <!-- مودال الملف الشخصي للجوال -->
+    <div v-if="isMobileProfileOpen" class="composer-modal-overlay" @click.self="isMobileProfileOpen = false">
+      <div class="composer-modal-card" style="max-width: 400px;">
+        <div class="composer-modal-header" style="border-bottom: 1px dashed var(--border-color);">
+          <h3><i class="fa-solid fa-user-circle"></i> الملف الشخصي</h3>
+          <button @click="isMobileProfileOpen = false" class="close-modal-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="composer-modal-body" style="padding: 1.5rem 1.25rem; text-align: center;">
+          <!-- حالة تسجيل الدخول -->
+          <div v-if="currentUser" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+            <img :src="currentUser.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${currentUser.displayName}`" alt="Avatar" style="width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--color-primary); object-fit: cover;" />
+            <div style="text-align: center;">
+              <h4 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: var(--text-main);">{{ currentUser.displayName || 'مستخدم جوجل' }}</h4>
+              <p style="margin: 0.25rem 0 0; font-size: 0.82rem; color: var(--text-muted); direction: ltr;">{{ currentUser.email }}</p>
+            </div>
+            <div style="width: 100%; border-top: 1px dashed var(--border-color); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-main);">
+                <span><i class="fa-solid fa-bookmark" style="color: var(--color-primary); margin-left: 0.4rem;"></i> المحفوظات</span>
+                <span style="font-weight: 700; color: var(--color-primary);">{{ savedPostIds.length }}</span>
+              </div>
+            </div>
+            <button @click="handleGoogleLogout(); isMobileProfileOpen = false" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; border-radius: 12px; background: transparent; border: 1px solid #d93025; color: #d93025; cursor: pointer; font-size: 0.85rem; font-family: inherit; font-weight: 700; transition: all 0.2s;">
+              <i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج
+            </button>
+          </div>
+          <!-- حالة عدم تسجيل الدخول -->
+          <div v-else style="display: flex; flex-direction: column; align-items: center; gap: 1.25rem; padding: 1rem 0;">
+            <i class="fa-solid fa-user-lock" style="font-size: 2.5rem; color: var(--text-muted); opacity: 0.5;"></i>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">سجّل دخولك بحساب جوجل للمشاركة في التدبرات وحفظ الخواطر.</p>
+            <button @click="handleGoogleLogin(); isMobileProfileOpen = false" class="publish-btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; border-radius: 12px; font-size: 0.9rem;">
+              <i class="fa-brands fa-google"></i> تسجيل الدخول بجوجل
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- شريط التنقل السفلي الثابت للجوال -->
     <nav class="mobile-bottom-nav">
       <button @click="activeTab = 'all'" :class="{ active: activeTab === 'all' }" class="mobile-nav-btn">
@@ -1446,6 +1486,11 @@ const copyRouletteVerse = async () => {
         <i class="fa-solid fa-book-quran"></i>
         <span>القرآن</span>
       </a>
+      <button @click="isMobileProfileOpen = true" class="mobile-nav-btn">
+        <img v-if="currentUser && currentUser.photoURL" :src="currentUser.photoURL" alt="Profile" style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover;" />
+        <i v-else class="fa-solid fa-circle-user"></i>
+        <span>حسابي</span>
+      </button>
     </nav>
   </div>
 </template>
