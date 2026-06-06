@@ -881,6 +881,36 @@ const triggerRoulette = async () => {
   }
 };
 
+const shareRouletteVerse = async () => {
+  if (!rouletteVerse.value) return;
+  const shareText = `« ${rouletteVerse.value.text} »\nسورة ${rouletteVerse.value.surahName} - الآية ${rouletteVerse.value.verseNumber}\nالتفسير الميسر: ${rouletteVerse.value.tafsir}\n\nعبر تطبيق منهاج الوهاج:\nhttps://menhaj-mubin.vercel.app`;
+  
+  if (typeof window !== 'undefined' && navigator.share) {
+    try {
+      await navigator.share({
+        title: `آية وتفسير من القرآن الكريم`,
+        text: shareText,
+        url: window.location.origin
+      });
+    } catch (e) {
+      console.log('فشلت المشاركة الأصلية، نسخ النص كبديل:', e);
+      try {
+        await navigator.clipboard.writeText(shareText);
+        alert('تم نسخ نص الآية والتفسير للمشاركة!');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  } else {
+    try {
+      await navigator.clipboard.writeText(shareText);
+      alert('تم نسخ نص الآية والتفسير للمشاركة!');
+    } catch (err) {
+      console.error(err);
+    }
+  }
+};
+
 // نسخ الرابط
 const copyPostLink = async () => {
   if (!sharingPost.value) return;
@@ -1375,9 +1405,14 @@ const copyPostLink = async () => {
             </div>
           </div>
 
-          <button @click="triggerRoulette" class="publish-btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; padding: 0.75rem; border-radius: 12px;">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> آية عشوائية أخرى
-          </button>
+          <div style="display: flex; gap: 0.5rem; width: 100%; margin-top: 0.5rem;">
+            <button @click="shareRouletteVerse" class="publish-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.85rem;" aria-label="مشاركة الآية">
+              <i class="fa-solid fa-share-nodes"></i> مشاركة الآية
+            </button>
+            <button @click="triggerRoulette" class="publish-btn" style="flex: 1.5; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; border-radius: 12px; font-size: 0.85rem;">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> آية عشوائية أخرى
+            </button>
+          </div>
         </div>
       </div>
     </div>
