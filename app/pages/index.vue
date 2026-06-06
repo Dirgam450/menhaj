@@ -1149,7 +1149,7 @@ const copyPostLink = async () => {
           ابحث عن الهداية وتدبر كتاب الله. احصل على آية كريمة عشوائية مع تفسيرها الميسر بضغطة زر.
         </p>
         <button @click="triggerRoulette" class="publish-btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem; font-size: 0.85rem; border-radius: 10px;">
-          <i class="fa-solid fa-dice"></i> آية عشوائية
+          <i class="fa-solid fa-wand-magic-sparkles"></i> آية عشوائية
         </button>
       </div>
 
@@ -1376,7 +1376,7 @@ const copyPostLink = async () => {
           </div>
 
           <button @click="triggerRoulette" class="publish-btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; padding: 0.75rem; border-radius: 12px;">
-            <i class="fa-solid fa-dice"></i> آية عشوائية أخرى
+            <i class="fa-solid fa-wand-magic-sparkles"></i> آية عشوائية أخرى
           </button>
         </div>
       </div>
@@ -1389,7 +1389,7 @@ const copyPostLink = async () => {
         <span>الرئيسية</span>
       </button>
       <button @click="triggerRoulette" class="mobile-nav-btn">
-        <i class="fa-solid fa-dice"></i>
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
         <span>فائدة عشوائية</span>
       </button>
       <button @click="activeTab = 'saved'" :class="{ active: activeTab === 'saved' }" class="mobile-nav-btn">
