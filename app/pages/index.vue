@@ -1282,6 +1282,25 @@ const copyPostLink = async () => {
         </div>
       </div>
     </Transition>
+    <!-- شريط التنقل السفلي الثابت للجوال -->
+    <nav class="mobile-bottom-nav">
+      <button @click="activeTab = 'all'" :class="{ active: activeTab === 'all' }" class="mobile-nav-btn">
+        <i class="fa-solid fa-house"></i>
+        <span>الرئيسية</span>
+      </button>
+      <button @click="activeTab = 'saved'" :class="{ active: activeTab === 'saved' }" class="mobile-nav-btn">
+        <i class="fa-solid fa-bookmark"></i>
+        <span>المحفوظة</span>
+      </button>
+      <NuxtLink to="/admin" class="mobile-nav-btn">
+        <i class="fa-solid fa-user-shield"></i>
+        <span>الإدارة</span>
+      </NuxtLink>
+      <button @click="toggleTheme" class="mobile-nav-btn">
+        <i :class="isDarkMode ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
+        <span>{{ isDarkMode ? 'مضيء' : 'داكن' }}</span>
+      </button>
+    </nav>
   </div>
 </template>
 

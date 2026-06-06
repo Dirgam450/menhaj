@@ -948,3 +948,62 @@ body.dark-mode .tweet-card:hover {
   direction: rtl;
 }
 
+/* شريط التنقل السفلي للهواتف */
+.mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background: var(--bg-card);
+    backdrop-filter: var(--glass-blur);
+    border-top: 1px solid var(--border-feed);
+    z-index: 1500;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 0.5rem;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .mobile-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-family: var(--font-arabic);
+    cursor: pointer;
+    gap: 0.2rem;
+    text-decoration: none;
+    transition: color 0.2s, transform 0.1s;
+    flex: 1;
+  }
+
+  .mobile-nav-btn span {
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .mobile-nav-btn.active, .mobile-nav-btn:hover {
+    color: var(--color-primary);
+  }
+  
+  /* تكييف الخلاصة والزر العائم مع الشريط السفلي */
+  .main-feed {
+    padding-bottom: 80px !important;
+  }
+  
+  .composer-fab {
+    bottom: 80px !important; /* رفعه للأعلى لكي لا يغطي الشريط السفلي */
+  }
+}
+
