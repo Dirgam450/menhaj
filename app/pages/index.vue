@@ -1305,59 +1305,6 @@ const copyPostLink = async () => {
 </template>
 
 <style>
-/* زر فتح القائمة الجانبية في الجوال */
-@media (max-width: 768px) {
-  .mobile-menu-toggle, .mobile-theme-btn {
-    display: block !important;
-  }
-  
-  .mobile-menu-header {
-    display: flex !important;
-  }
-  
-  /* تحويل القائمة الجانبية إلى Drawer منزلق */
-  .sidebar-nav {
-    position: fixed !important;
-    top: 0;
-    right: -290px;
-    width: 280px;
-    height: 100vh;
-    background-color: var(--bg-secondary) !important;
-    z-index: 1100 !important;
-    box-shadow: -5px 0 25px rgba(0,0,0,0.15);
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex !important;
-    flex-direction: column;
-    padding: 1.5rem 1rem !important;
-    border-left: none !important;
-  }
-  
-  .sidebar-nav.mobile-open {
-    right: 0 !important;
-  }
-  
-  .mobile-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1050;
-    backdrop-filter: blur(3px);
-  }
-  
-  .logo-title, .logo-desc, .nav-item span, .post-composer-trigger span {
-    display: inline-block !important;
-  }
-  .nav-item {
-    justify-content: flex-start !important;
-    padding: 0.85rem 1.25rem !important;
-    width: 100% !important;
-    border-radius: 99px !important;
-  }
-}
-
 /* تنسيقات مودال المشاركة الفاخر */
 .share-modal-overlay {
   position: fixed;
