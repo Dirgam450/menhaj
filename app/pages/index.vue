@@ -1296,10 +1296,6 @@ const copyPostLink = async () => {
         <i class="fa-solid fa-book-quran"></i>
         <span>القرآن</span>
       </a>
-      <button @click="toggleTheme" class="mobile-nav-btn">
-        <i :class="isDarkMode ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
-        <span>{{ isDarkMode ? 'مضيء' : 'داكن' }}</span>
-      </button>
     </nav>
   </div>
 </template>
