@@ -656,35 +656,10 @@ body.dark-mode .tweet-card:hover {
     grid-template-columns: 100%;
   }
   .sidebar-nav {
-    display: flex !important;
-    position: fixed !important;
-    top: 0 !important;
-    right: -280px !important;
-    width: 280px !important;
-    height: 100vh !important;
-    z-index: 2000 !important;
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25) !important;
-    background-color: var(--bg-card) !important;
-    backdrop-filter: var(--glass-blur) !important;
-  }
-  .sidebar-nav.mobile-open {
-    right: 0 !important;
-  }
-  .mobile-menu-header {
-    display: flex !important;
-  }
-  .logo-title, .logo-desc, .nav-item span, .post-composer-trigger span {
-    display: inline-block !important;
-  }
-  .nav-item {
-    justify-content: flex-start !important;
-    border-radius: 12px !important;
-    padding: 0.85rem 1.25rem !important;
-    width: 100% !important;
+    display: none !important;
   }
   .mobile-menu-toggle {
-    display: block !important;
+    display: none !important;
   }
   .mobile-theme-btn {
     display: block !important;
