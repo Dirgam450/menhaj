@@ -552,6 +552,22 @@ const openShareModal = async (post: any) => {
   }
 };
 
+const handleShare = async (post: any) => {
+  if (typeof window !== 'undefined' && navigator.share) {
+    try {
+      await navigator.share({
+        title: 'خاطرة قرآنية بقلم ' + post.authorName,
+        text: post.content + (post.verseRef ? `\nسورة ${post.verseRef.surahName} - آية ${post.verseRef.verseNumber}\n« ${post.verseRef.text} »` : ''),
+        url: window.location.origin + `/#post-${post.id}`
+      });
+      return;
+    } catch (e) {
+      console.log('Native share failed or dismissed, opening fallback modal:', e);
+    }
+  }
+  openShareModal(post);
+};
+
 const closeShareModal = () => {
   isShareModalOpen.value = false;
   sharingPost.value = null;
@@ -1001,7 +1017,7 @@ const copyPostLink = async () => {
               <button @click="handleSave(post.id)" class="action-btn bookmark-btn" :class="{ active: savedPostIds.includes(post.id) }" title="حفظ الخاطرة">
                 <i :class="savedPostIds.includes(post.id) ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"></i>
               </button>
-              <button @click="openShareModal(post)" class="action-btn share-image-btn" title="تحميل كصورة للنشر" style="color: var(--text-muted); cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color='var(--text-muted)'">
+              <button @click="handleShare(post)" class="action-btn share-image-btn" title="تحميل كصورة للنشر" style="color: var(--text-muted); cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color='var(--text-muted)'">
                 <i class="fa-solid fa-share-nodes"></i>
               </button>
             </div>
